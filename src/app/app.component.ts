@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Hello
     this.reciverMessage = [{"text": "This is text from anywhere"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}, {"text": "This"},{"text": "This"}, {"text": "This"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}];
     // console.log(this.messages)
   }
