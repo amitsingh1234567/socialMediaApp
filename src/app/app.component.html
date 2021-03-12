@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="col-md-8 pl-0" #side2>
-      <div class="card h-100" #chatPanel style="display: none;">
+      <div class="card " #chatPanel style="display: none;">
         <div class="card-header">
           <div class="row">
             <div class="col-1 col-sm-1 col-md-1 col-lg-1">
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div class="card-body" id="messages">
+        <div class="card-body" id="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
           <div class="row">
             <div class="col-2 col-sm-1 col-md-1">
               <img src="../assets/pp.png" class="chat-pic" alt="..">
@@ -93,10 +93,11 @@
             </div>
           </div>
 
-          <div class="row justify-content-end">
+          <div class="row justify-content-end"  *ngFor="let msg of reciverMessage">
             <div class="col-6 col-sm-7 col-md-7">
               <p class="sent float-right">
-                This is text from anywhere
+                {{msg.text}}
+                <!-- This is text from anywhere -->
               <span class="time float-right">1:28 PM</span>
               </p>
             </div>
@@ -112,7 +113,7 @@
               <i class="far fa-grin fa-2x"></i>
             </div>
             <div class="col-8 col-md-10">
-              <input  (keydown)="onKeydown($event)" type="text" placeholder="Type here" class="form-control form-rounded">
+              <input #inputField  (keydown)="onKeydown($event)" type="text" placeholder="Type here" class="form-control form-rounded">
             </div>
             <div class="col-2 col-md-1">
               <i class="fas fa-microphone fa-2x"></i>
