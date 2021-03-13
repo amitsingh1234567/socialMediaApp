@@ -77,3 +77,11 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.modal-header{
+    border-bottom: none;
+}
+
+.modal-footer{
+    border-top: none;
+}

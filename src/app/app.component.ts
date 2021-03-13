@@ -1,5 +1,7 @@
 import { ElementRef, Renderer2 } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup} from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,11 @@ export class AppComponent implements OnInit {
   @ViewChild('scrollMe') scrollDown: ElementRef;
 
   reciverMessage:any;
+  isName = false;
+  isEmail = false;
+  isPassword = false;
+
+  signUpForm: FormGroup;
 
   constructor(private renderer: Renderer2) {
 
@@ -22,6 +29,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.reciverMessage = [{"text": "This is text from anywhere"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}, {"text": "This"},{"text": "This"}, {"text": "This"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}];
+    this.signUpForm = new FormGroup({
+      "name": new FormControl(null),
+      "email": new FormControl(null),
+      "password": new FormControl(null)
+    })
+  }
+
+
+  signIn(){
   }
 
   starCthat() {
