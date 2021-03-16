@@ -1,6 +1,7 @@
 import { ElementRef, Renderer2 } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { AppService } from './app.service';
 
 
 @Component({
@@ -14,27 +15,77 @@ export class AppComponent implements OnInit {
   @ViewChild('side1') side1: ElementRef;
   @ViewChild('side2') side2: ElementRef;
   @ViewChild('inputField') inputField: ElementRef;
-  @ViewChild('scrollMe') scrollDown: ElementRef;
+  @ViewChild('scrollMe') scrollDown: ElementRef; 
+  @ViewChild('dismisModal') dismisModal: ElementRef;
 
   reciverMessage:any;
   isName = false;
-  isEmail = false;
   isPassword = false;
-
+  dismis
   signUpForm: FormGroup;
+  signInForm: FormGroup;
 
-  constructor(private renderer: Renderer2) {
+
+  constructor(private renderer: Renderer2, private appService: AppService) {
 
   }
 
   ngOnInit() {
     this.reciverMessage = [{"text": "This is text from anywhere"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}, {"text": "This"},{"text": "This"}, {"text": "This"}, {"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"},{"text": "This"}];
+    this.signInForm = new FormGroup({
+      "email": new FormControl(null, [Validators.required, Validators.email]),
+      "password": new FormControl(null, Validators.required)
+    })
+
     this.signUpForm = new FormGroup({
-      "name": new FormControl(null),
-      "email": new FormControl(null),
-      "password": new FormControl(null)
+      "name": new FormControl(null, Validators.required),
+      "email": new FormControl(null, [Validators.required, Validators.email]),
+      "password": new FormControl(null, Validators.required)
     })
   }
+
+  onSignin(){
+    console.log('Sign In1')
+    // console.log(this.signInForm)
+    this.appService.signIn(this.signInForm.value).subscribe(res => {
+      console.log(res.success)
+      console.log(res.message)
+
+    })
+  }
+
+  onSignUp(){
+    let value = this.signUpForm.value;
+    // let name = this.signUpForm.value.name;
+    this.appService.signUp(value).subscribe(res => {
+      console.log(res.success)
+      console.log(res.message)
+
+    })
+      // let email = this.signUpForm.value.email;
+      // let password = this.signUpForm.value.password;
+      // this.appService.signUp(name, email, password)
+      // console.log(name)
+      // console.log(email)
+      // console.log(password)
+      this.signUpForm.reset();
+      // this.dismisModal.nativeElement.removeAttribute('data-dismiss');
+    
+    // console.log(this.signUpForm)
+    // if(this.signUpForm.value.name || this.signUpForm.value.name == ""){
+    //   this.isName = true
+    // }
+    // if(this.signUpForm.value.password || this.signUpForm.value.password == ""){
+    //   this.isPassword = true
+    // }
+    // console.log(this.signUpForm.value.email)
+    
+    // this.signUpForm.value.name = null;
+    // this.signUpForm.value.email = null;
+    // this.signUpForm.value.password = null;
+
+  }
+
 
 
   signIn(){
