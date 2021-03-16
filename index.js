@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 
-// Connect to DataBase
+// Connect to DataBase    
 // const DB = 'mongodb://localhost:27017/Social_Media'
 const DB = 'mongodb+srv://amit-singh_1:9576435668@cluster0-49vnb.mongodb.net/Social_Media';
  mongoose.connect(DB, {
@@ -14,7 +15,10 @@ const DB = 'mongodb+srv://amit-singh_1:9576435668@cluster0-49vnb.mongodb.net/Soc
 .then(() => console.log('MngoDb Connected Successfully...'))
 .catch(console.log)
 
-// Body Parser
+
+app.use(cors())
+
+// Body Parser     
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

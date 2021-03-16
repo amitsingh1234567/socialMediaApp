@@ -6,11 +6,13 @@ const singToken = id => {
     return jwt.sign({id}, 'mySecret', {expiresIn: '6h'});
 }
 exports.signup = async (req, res, next) => {
+    console.log(req.body)
+
     const {name, email, password } = req.body;
     try{
         const user = await User.findOne({email});
         if(user){
-            return res.status(400).json({success: false, message: 'User all ready exist with this email'});
+            return res.json({success: false, message: 'User all ready exist with this email'});
         }
         
         bcrypt.genSalt(10, (err, salt) => {
@@ -29,7 +31,7 @@ exports.signup = async (req, res, next) => {
                     res.status(201).json({success: true, user: user, message: 'User registration successfully'})
                  }
                  catch(err){
-                    res.status(400).json({success: false, message: err});
+                    res.json({success: false, message: err});
                     console.log(err);
                  }
             });
@@ -44,27 +46,28 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.signIn = async (req, res, next) => {
+    
     const {email, password} = req.body;
 
     // 1) Check if email and password exist
-    if(!email || !password){
-        return res.status(400).json({success: false, message: 'Please provide email and password!'});
-    };
+    // if(!email || !password){
+    //     return restart.json({success: false, message: 'Please provide email and password!'});
+    // };
 
     try{
        const user = await User.findOne({email});
        if(!user){
-        return  res.status(400).json({success: false, message: 'User does not exist with this email'});
+        return  res.json({success: false, message: 'User does not exist with this email'});
        };
 
        bcrypt.compare(password, user.password, (err, isCorect) => {
         if(!isCorect){
-            return  res.status(400).json({success: false, message: 'Incorrect password'});
+            return  res.json({success: false, message: 'Incorrect password'});
         }
 
         // Create user token
         let Token = singToken(user._id);
-        return  res.status(200).json({success: true, token: Token, message: 'Login sucessfully'});
+        return  res.json({success: true, token: Token, message: 'Login sucessfully'});
     });
     }catch(err){
         console.log(err)
