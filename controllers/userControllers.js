@@ -67,9 +67,14 @@ exports.signIn = async (req, res, next) => {
 
         // Create user token
         let Token = singToken(user._id);
-        return  res.json({success: true, token: Token, message: 'Login sucessfully'});
+        return  res.json({success: true, token: Token, user: user, message: 'Login sucessfully'});
     });
     }catch(err){
         console.log(err)
     }
 };
+
+exports.allUsers = async (req, res, next) => {
+   const Users = await User.find();
+   return res.json({success: true, users: Users});
+}
