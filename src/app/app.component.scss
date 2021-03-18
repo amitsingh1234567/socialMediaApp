@@ -85,3 +85,7 @@
 .modal-footer{
     border-top: none;
 }
+
+.dropdown-toggle::before {
+    display: none;
+}

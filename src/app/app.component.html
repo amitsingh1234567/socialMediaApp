@@ -6,11 +6,58 @@
       <div class="card h-100">
         <div class="card-header">
           <div class="row">
-            <div class="col-10 col-sm-10  col-md-10">
-              <img src="../assets/pp.png" class="profile-pic" alt="..">
+            <div class="col-1 col-sm-1 col-md-1 d-md-none">
+              <i class="fas fa-arrow-left d-md-none" style="font-size: 20px; cursor: pointer"  (click)="hideChatList()"></i>
+            </div>
+            <div class="col-9 col-sm-9  col-md-9">
+              <img #profilePic src="../assets/pp.png" class="rounded-circle profile-pic" alt="..">
             </div>
             <div class="col-2 col-sm-2 col-md-2">
-              <i class="fas fa-arrow-left d-md-none" style="font-size: 20px; cursor: pointer"  (click)="hideChatList()"></i>
+              <div class="dropleft">
+                <span class="dropdown-toggle" data-toggle="dropdown" style="float: right;">
+                  <i class="fas fa-ellipsis-v icon" style="cursor: pointer;"  (click)="hideChatList()"></i>
+                </span>
+                <div class="dropdown-menu">
+                  <a href="#" #newChat class="dropdown-item disabled" (click)="populateFriendList()" data-toggle="modal" data-target="#modelFriendList">New Chat</a>
+                  <!-- <a href="#" #linkSignIn (click)="onSignin()" class="dropdown-item">Sign In</a> -->
+                  <a href="#"  #signOut (click)="onSignOut()" class="dropdown-item disabled">Sign Out</a>
+                </div>
+
+                <div class="modal fade" id="modelFriendList">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="card">
+                        <div class="card-header">
+                          Friend List
+                          <span class="close" data-dismiss="modal" style="cursor: pointer;">&times;</span>
+                        </div>
+                        <ul class="list-group list-group-flush" id="listFriend">
+                          <li class="list-group-item" style="background-color: #f8f8f8;">
+                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded">
+                          </li>
+                          <div class="text-center" *ngIf="isLoadedFrndList">
+                            <span class="spinner-border text-primary mt-5" style="width: 6rem; height: 6rem;"></span>
+                          </div>
+                          <span *ngFor="let friend of friendList">
+                          <li class="list-group-item list-group-item-action" (click)="starCthat()" *ngIf="currentUser != friend.email">
+                            <div class="row" >
+                              <div class="col-md-2" style="cursor: pointer;">
+                              <img src="../assets/{{friend.photoURL}}" class="friend-pic rounded-circle" alt="..">
+                              </div>
+                              <div class="col-md-10" style="cursor: pointer;">
+                                <div class="name">{{friend.name}}</div>
+                              </div>
+                            </div>
+                          </li>
+                        </span>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
             </div>
           </div>
         </div>
@@ -135,8 +182,6 @@
         
       </div>
     </div>
-
-   
   </div>
 
 

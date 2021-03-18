@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AppService } from './app.service'
 
 
@@ -22,7 +23,8 @@ import { AppService } from './app.service'
     HttpClientModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
